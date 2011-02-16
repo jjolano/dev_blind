@@ -1,7 +1,12 @@
 dev_blind - a writable dev_flash mounter for PlayStation 3
 
+Source code: https://github.com/jjolano/dev_blind
+
 
 This program will mount a writable dev_flash into /dev_blind, which can be used by various PS3 FTP servers and file managers.
 
 THIS WILL ENABLE WRITE ABILITY ON dev_flash, WHICH IS VITAL TO THE OPERATION OF THE PLAYSTATION 3 SOFTWARE.
 Use this at your own risk.
+
+Follow me on Twitter: @jjolano
+

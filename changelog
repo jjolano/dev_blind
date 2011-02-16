@@ -1,0 +1,8 @@
+[Version 1.1 - February 15, 2011]
+- Added more information when starting up the program
+- Shortened, removed some, and optimized code
+- Added XMB quit game event handling
+
+[Version 1.0 - February 14, 2011]
+- Initial Release
+
