@@ -8,12 +8,12 @@
 
 #include <lv2/process.h>
 
-#include <psl1ght/lv2.h>
 #include <psl1ght/lv2/filesystem.h>
 
 #include "rsxutil.h"
+#include "filesystem_mount.h"
 
-const char* MOUNT_POINT = "/dev_blind"; // the directory where writable dev_flash should be mounted to
+const char* MOUNT_POINT = "/dev_blind"; // the path where dev_blind should be mounted to
 
 int currentBuffer = 0;
 msgButton dlg_action;
@@ -36,7 +36,7 @@ void showmessage(msgType type, const char* message)
 	msgDialogOpen(type, message, handledialog, 0, NULL);
 	
 	dlg_action = 0;
-	while(!dlg_action)
+	while(dlg_action == 0)
 	{
 		sysCheckCallback();
 		
@@ -60,7 +60,7 @@ int main(int argc, const char* argv[])
 	
 	waitFlip();
 	
-	showmessage(mdialogyesno, "dev_blind v1.1 by jjolano (Twitter: @jjolano)\n\nThis program allows you to write to the flash memory of your console.\nDO NOT USE THIS PROGRAM IF YOU DON'T KNOW EXACTLY WHAT YOU ARE DOING!\n\nCapiche?");
+	showmessage(mdialogyesno, "dev_blind v1.1 by jjolano (Twitter: @jjolano)\n\nThis program allows you to write to the flash memory (dev_flash) of your console.\nDO NOT USE THIS PROGRAM IF YOU DON'T KNOW EXACTLY WHAT YOU ARE DOING!\n\nCapiche?");
 	
 	if(dlg_action == MSGDIALOG_BUTTON_YES)
 	{
@@ -75,13 +75,13 @@ int main(int argc, const char* argv[])
 			if(is_mounted == 0)
 			{
 				// unmount dev_blind
-				Lv2Syscall1(838, (u64)MOUNT_POINT);
+				lv2FsUnmount(MOUNT_POINT);
 				showmessage(mdialogok, "Successfully unmounted dev_blind.");
 			}
 			else
 			{
 				// mount dev_flash to dev_blind
-				Lv2Syscall8(837, (u64)"CELL_FS_IOS:BUILTIN_FLSH1", (u64)"CELL_FS_FAT", (u64)MOUNT_POINT, 0, 0, 0, 0, 0);
+				lv2FsMount(DEV_FLASH1, FS_FAT32, MOUNT_POINT, 0);
 				showmessage(mdialogok, "Successfully mounted dev_blind.");
 			}
 		}
