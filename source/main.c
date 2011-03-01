@@ -75,14 +75,14 @@ int main(int argc, const char* argv[])
 			if(is_mounted == 0)
 			{
 				// unmount dev_blind
-				Lv2Syscall1(838, (u64)MOUNT_POINT);
-				showmessage(mdialogok, "Successfully unmounted dev_blind.");
+				int unmounted_dev_blind = Lv2Syscall1(838, (u64)MOUNT_POINT);
+				showmessage(mdialogok, (unmounted_dev_blind == 0) ? "Successfully unmounted dev_blind." : "An error occured while unmounting dev_blind.");
 			}
 			else
 			{
 				// mount dev_flash to dev_blind
-				Lv2Syscall8(837, (u64)"CELL_FS_IOS:BUILTIN_FLSH1", (u64)"CELL_FS_FAT", (u64)MOUNT_POINT, 0, 0, 0, 0, 0);
-				showmessage(mdialogok, "Successfully mounted dev_blind.");
+				int mounted_dev_blind = Lv2Syscall8(837, (u64)"CELL_FS_IOS:BUILTIN_FLSH1", (u64)"CELL_FS_FAT", (u64)MOUNT_POINT, 0, 0, 0, 0, 0);
+				showmessage(mdialogok, (mounted_dev_blind == 0) ? "Successfully mounted dev_blind." : "An error occured while mounting dev_blind.");
 			}
 		}
 	}
