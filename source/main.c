@@ -75,14 +75,14 @@ int main(int argc, const char* argv[])
 			if(is_mounted == 0)
 			{
 				// unmount dev_blind
-				lv2FsUnmount(MOUNT_POINT);
-				showmessage(mdialogok, "Successfully unmounted dev_blind.");
+				int unmounted_dev_blind = lv2FsUnmount(MOUNT_POINT);
+				showmessage(mdialogok, (unmounted_dev_blind == 0) ? "Successfully unmounted dev_blind." : "An error occured while unmounting dev_blind.");
 			}
 			else
 			{
 				// mount dev_flash to dev_blind
-				lv2FsMount(DEV_FLASH1, FS_FAT32, MOUNT_POINT, 0);
-				showmessage(mdialogok, "Successfully mounted dev_blind.");
+				int mounted_dev_blind = lv2FsMount(DEV_FLASH1, FS_FAT32, MOUNT_POINT, 0);
+				showmessage(mdialogok, (mounted_dev_blind == 0) ? "Successfully mounted dev_blind." : "An error occured while mounting dev_blind.");
 			}
 		}
 	}
